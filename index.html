@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Student Grade Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+:root {
+ 
+    --orange-main: #D9531E; 
+    --gold-accent: #FFCC00; 
+    --cream-bg: #FAF3E0; 
+    --text-dark: #333;
+    --radius: 12px;
+    --shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+
+body {
+    background: linear-gradient(180deg, var(--cream-bg) 0%, #ffffff 100%);
+    font-family: "Poppins", "Inter", sans-serif;
+    color: var(--text-dark);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+
+.container {
+    max-width: 820px;
+    margin: 50px auto;
+    padding: 32px;
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 3px solid var(--orange-main); 
+}
+
+
+h1 {
+    color: var(--orange-main); 
+    font-weight: 800;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+h2.h5 {
+    color: var(--text-dark);
+    font-weight: 600;
+    margin-top: 25px;
+}
+
+
+.input-group .input-group-text {
+    background: var(--orange-main);
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    border-radius: var(--radius) 0 0 var(--radius);
+}
+
+.input-group .form-control {
+    border: 2px solid var(--orange-main);
+    border-left: none;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    height: 44px;
+    transition: 0.2s;
+}
+
+.input-group .form-control:focus {
+    outline: none;
+    border-color: var(--gold-accent);
+    box-shadow: 0 0 8px rgba(255, 204, 0, 0.8);
+}
+
+
+.btn.btn-custom,
+.btn.btn-primary {
+  
+    background: linear-gradient(135deg, var(--orange-main), #D9891E);
+    border: none;
+    color: #fff;
+    font-weight: 700;
+    border-radius: var(--radius);
+    box-shadow: 0 6px 16px rgba(217, 83, 30, 0.4);
+    transition: all 0.2s ease;
+}
+
+.btn.btn-custom:hover,
+.btn.btn-primary:hover {
+
+    background: linear-gradient(135deg, #D9891E, var(--orange-main));
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(217, 83, 30, 0.5);
+}
+
+
+.card {
+
+    background: var(--cream-bg);
+    border-radius: var(--radius);
+    border: 2px solid var(--gold-accent);
+    box-shadow: var(--shadow);
+}
+
+#student_info {
+    color: var(--orange-main);
+    font-weight: 700;
+}
+
+#summary {
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid var(--gold-accent);
+    font-family: "Courier New", monospace;
+    padding: 10px;
+    white-space: pre-wrap;
+    font-size: 0.95rem;
+}
+
+#output {
+    
+    color: var(--orange-main);
+    font-weight: 800;
+    font-size: 1.25rem;
+}
+
+
+hr {
+    border: 1px solid var(--gold-accent);
+}
+
+
+@media (max-width: 576px) {
+    .container {
+        margin: 20px;
+        padding: 20px;
+    }
+    h1 {
+        font-size: 1.5rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Student Grade Calculator</h1>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="first_name" class="form-label">First Name - </label>
+                <input type="text" id="first_name" class="form-control" placeholder="Enter First Name">
+            </div>
+            <div class="col-md-6">
+                <label for="last_name" class="form-label">Last Name - </label>
+                <input type="text" id="last_name" class="form-control" placeholder="Enter Last Name">
+            </div>
+        </div>
+
+        <h2 class="h5 mt-4 mb-2">Grades (0–100)</h2>
+
+        <div class="input-group mb-2">
+            <span class="input-group-text">Science</span>
+            <input type="text" id="science_grade" class="form-control">
+        </div>
+        <div class="input-group mb-2">
+            <span class="input-group-text">Math</span>
+            <input type="text" id="math_grade" class="form-control">
+        </div>
+        <div class="input-group mb-2">
+            <span class="input-group-text">English</span>
+            <input type="text" id="english_grade" class="form-control">
+        </div>
+        <div class="input-group mb-2">
+            <span class="input-group-text">Filipino</span>
+            <input type="text" id="filipino_grade" class="form-control">
+        </div>
+        <div class="input-group mb-2">
+            <span class="input-group-text">ICT</span>
+            <input type="text" id="ict_grade" class="form-control">
+        </div>
+        <div class="input-group mb-4">
+            <span class="input-group-text">PE</span>
+            <input type="text" id="pe_grade" class="form-control">
+        </div>
+
+        <button class="btn btn-primary w-100 py-2" py-click="general_weighted_average">
+            Calculate GWA
+        </button>
+
+        <hr class="mt-4">
+
+        <div class="card bg-light p-3 mt-4">
+            <p class="mb-1">Student Info: <strong id="student_info" class="text-secondary"></strong></p>
+            <p class="mb-1">Grade Summary:</p>
+            <pre id="summary" class="bg-white p-2 border rounded text-dark"></pre>
+            <h4 class="mt-2">Overall GWA: <span id="output" class="text-primary"></span></h4>
+        </div>
+    </div>
+
+    <py-config>
+        [[fetch]]
+        files = ["main.py"]
+    </py-config>
+    <py-script src="main.py"></py-script>
+</body>
+</html>
